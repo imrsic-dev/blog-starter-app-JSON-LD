@@ -12,15 +12,16 @@ function createPostListSchema(posts, router) {
     url: router.asPath,
     inLanguage: "en-US",
     description: "list of all blogs",
-    list: posts.map((post) => {
+    itemListElement: posts.map((post, i) => {
       return {
-        "@type": "Blog",
-        author: {
-          "@type": "Person",
-          name: post.author.name
-        },
-        title: post.title,
-        image: post.coverImage
+        "@type": "ListItem",
+        "position": i + 1,
+        item: {
+          "@type": "Blog",
+          url: `${router.asPath}${post.slug}`,
+          title: post.title,
+          image: post.coverImage
+        }
       }
     })
   }
