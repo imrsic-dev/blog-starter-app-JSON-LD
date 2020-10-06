@@ -10,6 +10,22 @@ import PostTitle from '../../components/post-title'
 import Head from 'next/head'
 import { CMS_NAME } from '../../lib/constants'
 import markdownToHtml from '../../lib/markdownToHtml'
+import JSON_LD_Script from '../../lib/JSON_LD_Script'
+
+function createPostSchema({ date, coverImage, author, content, title }) {
+  return {
+    "@context": "https://schema.org/",
+    "@type": "Blog",
+    datePosted: date,
+    title,
+    image: coverImage,
+    description: content.substring(0, 50) + ' ...',
+    author: {
+      "@type": "Person",
+      name: author
+    }
+  }
+}
 
 export default function Post({ post, morePosts, preview }) {
   const router = useRouter()
@@ -23,24 +39,26 @@ export default function Post({ post, morePosts, preview }) {
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
         ) : (
-          <>
-            <article className="mb-32">
-              <Head>
-                <title>
-                  {post.title} | Next.js Blog Example with {CMS_NAME}
-                </title>
-                <meta property="og:image" content={post.ogImage.url} />
-              </Head>
-              <PostHeader
-                title={post.title}
-                coverImage={post.coverImage}
-                date={post.date}
-                author={post.author}
-              />
-              <PostBody content={post.content} />
-            </article>
-          </>
-        )}
+            <>
+              <article className="mb-32">
+                <Head>
+                  <title>
+                    {post.title} | Next.js Blog Example with {CMS_NAME}
+                  </title>
+                  <meta property="og:image" content={post.ogImage.url} />
+                  {JSON_LD_Script(post, createPostSchema)}
+
+                </Head>
+                <PostHeader
+                  title={post.title}
+                  coverImage={post.coverImage}
+                  date={post.date}
+                  author={post.author}
+                />
+                <PostBody content={post.content} />
+              </article>
+            </>
+          )}
       </Container>
     </Layout>
   )
