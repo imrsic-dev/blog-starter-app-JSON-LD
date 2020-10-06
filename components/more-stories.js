@@ -30,9 +30,9 @@ export default function MoreStories({ posts }) {
   console.log("json", createPostListSchema(posts, router));
   return (
     <section>
-      {/* <Head>
+      <Head>
         {JSON_LD_Script(posts, createPostListSchema, router)}
-      </Head> */}
+      </Head>
       <h2 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
         More Stories
       </h2>
