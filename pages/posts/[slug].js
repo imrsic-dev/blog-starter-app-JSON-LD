@@ -15,7 +15,6 @@ import JSON_LD_Script from '../../lib/JSON_LD_Script'
 
 
 function createPostSchema({ date, coverImage, author, content, title, slug }, router) {
-
   console.log("slug", slug);
   console.log("router", router);
   return {
