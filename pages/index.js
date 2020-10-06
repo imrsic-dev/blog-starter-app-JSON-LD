@@ -6,9 +6,38 @@ import Layout from '../components/layout'
 import { getAllPosts } from '../lib/api'
 import Head from 'next/head'
 import { CMS_NAME } from '../lib/constants'
+import { useRouter } from 'next/router'
+import JSON_LD_Script from '../lib/JSON_LD_Script'
+
+const router = useRouter();
+
+function createPostListSchema(posts, router) {
+  console.log("posts", posts);
+  console.log("router", router);
+  return {
+    "@context": "https://schema.org/",
+    "@type": "BlogList",
+    url: router.asPath,
+    inLanguage: "en-US",
+    description: "list of all blogs",
+    itemListElement: posts.map((post, i) => {
+      return {
+        "@type": "ListItem",
+        "position": i + 1,
+        item: {
+          "@type": "Blog",
+          url: `${router.asPath}${post.slug}`,
+          title: post.title,
+          image: post.coverImage
+        }
+      }
+    })
+  }
+}
 
 
 export default function Index({ allPosts }) {
+  const router = useRouter()
   const heroPost = allPosts[0]
   const morePosts = allPosts.slice(1)
   return (
@@ -16,6 +45,7 @@ export default function Index({ allPosts }) {
       <Layout>
         <Head>
           <title>Next.js Blog Example with {CMS_NAME}</title>
+          {JSON_LD_Script(allPosts, createPostListSchema, router)}
         </Head>
         <Container>
           <Intro />
