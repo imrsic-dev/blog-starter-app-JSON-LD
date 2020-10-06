@@ -20,7 +20,7 @@ function createPostListSchema(posts, router) {
         "@type": "ListItem",
         position: i + 1,
         name: post.title,
-        item: `${router.asPath}posts/${post.slug}`
+        item: `https://blog-starter-app-three.vercel.app/posts/${post.slug}`
       }
     })
   }
