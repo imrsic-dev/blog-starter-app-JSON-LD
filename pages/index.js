@@ -14,20 +14,13 @@ function createPostListSchema(posts, router) {
   console.log("router", router);
   return {
     "@context": "https://schema.org/",
-    "@type": "BlogList",
-    url: router.asPath,
-    inLanguage: "en-US",
-    description: "list of all blogs",
+    "@type": "BreadcrumbList",
     itemListElement: posts.map((post, i) => {
       return {
         "@type": "ListItem",
-        "position": i + 1,
-        item: {
-          "@type": "Blog",
-          url: `${router.asPath}${post.slug}`,
-          title: post.title,
-          image: post.coverImage
-        }
+        position: i + 1,
+        name: post.title,
+        item: `${router.asPath}posts/${post.slug}`
       }
     })
   }
