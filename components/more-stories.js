@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import PostPreview from '../components/post-preview'
 import { useRouter } from 'next/router'
 import JSON_LD_Script from '../lib/JSON_LD_Script'
