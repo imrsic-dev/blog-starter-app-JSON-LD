@@ -9,8 +9,6 @@ import { CMS_NAME } from '../lib/constants'
 import { useRouter } from 'next/router'
 import JSON_LD_Script from '../lib/JSON_LD_Script'
 
-const router = useRouter();
-
 function createPostListSchema(posts, router) {
   console.log("posts", posts);
   console.log("router", router);
