@@ -22,7 +22,8 @@ function createPostSchema({ date, coverImage, author, content, title }) {
     description: content.substring(0, 50) + ' ...',
     author: {
       "@type": "Person",
-      name: author
+      name: author.name,
+      image: author.picture
     }
   }
 }
