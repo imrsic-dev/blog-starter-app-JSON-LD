@@ -15,6 +15,7 @@ function createPostListSchema(posts, router) {
   return {
     "@context": "https://schema.org/",
     "@type": "BreadcrumbList",
+    name: "Blog list",
     itemListElement: posts.map((post, i) => {
       return {
         "@type": "ListItem",
